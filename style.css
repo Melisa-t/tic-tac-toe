@@ -2,4 +2,42 @@
     margin: 0;
     box-sizing: border-box;
     padding: 0;
+    
+}
+
+
+body{
+    height: 100vh;
+}
+
+.ttt-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+.turn-counter{
+    display: flex;
+    border: 2px solid black;
+    width: 10%;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.x{
+    width: 50%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    border-right: 2px solid black;
+}
+
+.o{
+    width: 50%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
 }
