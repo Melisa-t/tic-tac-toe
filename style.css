@@ -70,7 +70,8 @@ h1{
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
-    background-color: var(--darkest-color);;
+    background-color: var(--darkest-color);
+    transition-duration: 0.4s;
 }
 
 .btns{
@@ -91,6 +92,7 @@ h1{
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: 15px;
+    transition-duration: 0.4s;
 }
 
 :root{
@@ -102,4 +104,9 @@ h1{
 
 .cell:hover, .btn:hover{
     cursor: pointer;
+    background-color: var(--lightest-color);
+}
+
+.cell:active, .btn:active{
+    background-color: var(--light-color);
 }
