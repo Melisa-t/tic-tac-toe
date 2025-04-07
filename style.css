@@ -29,6 +29,12 @@ body{
     align-items:center;
     height: 5%;
     background-color: var(--darkest-color);
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+h1{
+    font-size: 3rem;
 }
 
 .x{
@@ -92,4 +98,8 @@ body{
     --dark-color: #344955;
     --light-color:#50727B;
     --lightest-color:#78A083;
+}
+
+.cell:hover, .btn:hover{
+    cursor: pointer;
 }
