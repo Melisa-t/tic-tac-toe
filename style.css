@@ -25,10 +25,12 @@ body{
     width: 10%;
     justify-content:space-around;
     align-items:center;
+    height: 5%;
 }
 
 .x{
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content:center;
     align-items:center;
@@ -37,6 +39,7 @@ body{
 
 .o{
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content:center;
     align-items:center;
