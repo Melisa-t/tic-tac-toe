@@ -14,11 +14,8 @@ const gameBoard = {
     moves: [],
   },
   playGame: function () {
-    if (this.isFinished === true) {
-      this.reset();
-    } else {
-      this.changeCell();
-    }
+    this.reset();
+    this.changeCell();
   },
   winningConditions: [
     [0, 1, 2],
@@ -38,8 +35,6 @@ const gameBoard = {
     const cellBtn = document.querySelectorAll(`.cell`);
     for (let i = 0; i < cellBtn.length; i++) {
       cellBtn[i].addEventListener("click", () => {
-        console.log(i);
-        console.log(cellBtn[i].textContent);
         const currentPlayer = this.checkPlayerTurn();
         if (cellBtn[i].textContent !== ``) {
           alert(`Choose another cell!`);
@@ -67,7 +62,7 @@ const gameBoard = {
       ) {
         this.winner = currentPlayer;
         alert(`${currentPlayer.userName} won! ⭐`);
-        this.isFinished = true;
+        this.reset();
         return;
       } else if (
         (this.playerOne.moves.length === 5 ||
@@ -75,7 +70,7 @@ const gameBoard = {
         this.winner === null
       ) {
         alert(`Draw! Restarting... 👾`);
-        this.isFinished = true;
+        this.reset();
         return;
       }
     }
