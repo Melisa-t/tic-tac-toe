@@ -4,12 +4,12 @@ const gameBoard = {
   winner: null,
 
   playerOne: {
-    userName: `First Player`,
+    userName: `X Player`,
     tag: `X`,
     moves: [],
   },
   playerTwo: {
-    userName: `Second Player`,
+    userName: `O Player`,
     tag: `O`,
     moves: [],
   },
