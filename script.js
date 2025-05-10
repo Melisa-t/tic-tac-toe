@@ -4,43 +4,33 @@ const gameBoard = {
   winner: null,
 
   playerOne: {
-    score: 0,
+    userName: `First Player`,
     tag: `X`,
     moves: [],
   },
   playerTwo: {
-    score: 0,
+    userName: `Second Player`,
     tag: `O`,
     moves: [],
   },
   playGame: function () {
     this.changeCell();
-    this.checkWin();
     this.reset();
   },
+  winningConditions: [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+  ],
 
-  //push i into an array and if array has 3 and winning
-  //conditions then announce winner
-  checkWin: function () {
-    const cellBtn = document.querySelectorAll(`.cell`);
-    let winningConditions = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-    ];
-  },
-  // player turn change
   checkPlayerTurn: function () {
     return !this.isPlayersTurn ? this.playerOne : this.playerTwo;
   },
-  //on click, data cell text content should
-  //change to players turn.
-
   changeCell: function () {
     const cellBtn = document.querySelectorAll(`.cell`);
     for (let i = 0; i < cellBtn.length; i++) {
@@ -48,20 +38,9 @@ const gameBoard = {
         const currentPlayer = this.checkPlayerTurn();
         if (cellBtn[i].textContent != ``) {
           alert(`Choose another cell!`);
-          console.log(
-            `playerone`,
-            this.playerOne.moves,
-            `playertwo`,
-            this.playerTwo.moves
-          );
         } else {
           currentPlayer.moves.push(i);
-          console.log(
-            `playerone`,
-            this.playerOne.moves,
-            `playertwo`,
-            this.playerTwo.moves
-          );
+          this.checkWin();
           cellBtn[i].textContent = currentPlayer.tag;
           this.changeStyle();
           this.isPlayersTurn = !this.isPlayersTurn;
@@ -69,6 +48,33 @@ const gameBoard = {
       });
     }
   },
+
+  isSubset: function (array1, array2) {
+    return array2.every((e) => array1.includes(e));
+  },
+
+  checkWin: function () {
+    const currentPlayer = this.checkPlayerTurn();
+    for (let i = 0; i < this.winningConditions.length; i++) {
+      if (
+        currentPlayer.moves.length >= 3 &&
+        this.isSubset(currentPlayer.moves, this.winningConditions[i])
+      ) {
+        this.winner = currentPlayer;
+        alert(`${currentPlayer.userName} won! ⭐`);
+        this.resetCells();
+      } else if (
+        (this.playerOne.moves.length === 5 ||
+          this.playerTwo.moves.length === 5) &&
+        this.winner === null
+      ) {
+        alert(`Draw! Restarting... 👾`);
+        this.resetCells();
+        return;
+      }
+    }
+  },
+
   changeStyle: function () {
     const currentPlayer = this.checkPlayerTurn();
     const xBtn = document.querySelector(`.x`);
@@ -81,14 +87,22 @@ const gameBoard = {
       oBtn.style.backgroundColor = `#35374B`;
     }
   },
+
+  resetCells: function () {
+    const cellBtn = document.querySelectorAll(`.cell`);
+    for (let i = 0; i <= cellBtn.length; i++) {
+      cellBtn[i].textContent = ``;
+    }
+    (this.playerOne.moves = []), (this.playerTwo.moves = []);
+    this.isPlayersTurn = false;
+    this.winner = null;
+  },
   reset: function () {
+    const currentPlayer = this.playerOne;
+    const cellBtn = document.querySelectorAll(`.cell`);
     const restartBtn = document.querySelector(`.restart-btn`);
     restartBtn.addEventListener("click", () => {
-      const currentPlayer = this.playerOne;
-      const cellBtn = document.querySelectorAll(`.cell`);
-      for (let i = 0; i <= cellBtn.length; i++) {
-        cellBtn[i].textContent = ``;
-      }
+      this.resetCells();
     });
   },
 };
