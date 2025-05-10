@@ -63,7 +63,6 @@ const gameBoard = {
         this.winner = currentPlayer;
         alert(`${currentPlayer.userName} won! ⭐`);
         this.reset();
-        return;
       } else if (
         (this.playerOne.moves.length === 5 ||
           this.playerTwo.moves.length === 5) &&
@@ -71,7 +70,6 @@ const gameBoard = {
       ) {
         alert(`Draw! Restarting... 👾`);
         this.reset();
-        return;
       }
     }
   },
@@ -96,7 +94,7 @@ const gameBoard = {
     }
     this.playerOne.moves = [];
     this.playerTwo.moves = [];
-    this.isPlayersTurn = false;
+    this.isPlayersTurn = true;
     this.winner = null;
     this.isFinished = true;
   },

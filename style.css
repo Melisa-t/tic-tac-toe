@@ -119,4 +119,5 @@ h1 {
 .o,
 .x {
   transition: 0.2s;
+  cursor:default;
 }
