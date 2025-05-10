@@ -61,14 +61,14 @@ const gameBoard = {
         this.isSubset(currentPlayer.moves, this.winningConditions[i])
       ) {
         this.winner = currentPlayer;
-        alert(`${currentPlayer.userName} won! ⭐`);
+        modalBox.showModal(currentPlayer.userName);
         this.reset();
       } else if (
         (this.playerOne.moves.length === 5 ||
           this.playerTwo.moves.length === 5) &&
         this.winner === null
       ) {
-        alert(`Draw! Restarting... 👾`);
+        modalBox.showDrawModal();
         this.reset();
       }
     }
@@ -94,7 +94,7 @@ const gameBoard = {
     }
     this.playerOne.moves = [];
     this.playerTwo.moves = [];
-    this.isPlayersTurn = true;
+    this.isPlayersTurn = false;
     this.winner = null;
     this.isFinished = true;
   },
@@ -107,4 +107,34 @@ const gameBoard = {
   },
 };
 
+const modalBox = {
+  showModal: function (player) {
+  modal.style.display = "block";
+  modalP.textContent = `${player} won! ⭐`;
+},
+
+showDrawModal: function (){
+    modal.style.display = "block";
+  modalP.textContent = `Draw! 👾`;
+},
+
+closeModal: function () {
+  modal.style.display = "none";
+  modalP.textContent = ``;
+},
+}
+const modal = document.getElementById("myModal");
+const closeBtn = document.getElementsByClassName("close");
+const modalP = document.querySelector(
+  `.modal-content > .modal-text-container > p`
+);
+
+closeBtn.onclick = function () {
+  modalBox.closeModal();
+};
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modalBox.closeModal();
+  }
+};
 gameBoard.playGame();
