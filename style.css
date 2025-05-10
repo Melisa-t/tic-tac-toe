@@ -110,3 +110,7 @@ h1{
 .cell:active, .btn:active{
     background-color: var(--light-color);
 }
+
+.o, .x {
+    transition: 0.2s;
+}
