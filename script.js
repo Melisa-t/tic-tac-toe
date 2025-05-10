@@ -14,8 +14,11 @@ const gameBoard = {
     moves: [],
   },
   playGame: function () {
-    this.changeCell();
-    this.reset();
+    if (this.isFinished === true) {
+      this.reset();
+    } else {
+      this.changeCell();
+    }
   },
   winningConditions: [
     [0, 1, 2],
@@ -35,13 +38,15 @@ const gameBoard = {
     const cellBtn = document.querySelectorAll(`.cell`);
     for (let i = 0; i < cellBtn.length; i++) {
       cellBtn[i].addEventListener("click", () => {
+        console.log(i);
+        console.log(cellBtn[i].textContent);
         const currentPlayer = this.checkPlayerTurn();
-        if (cellBtn[i].textContent != ``) {
+        if (cellBtn[i].textContent !== ``) {
           alert(`Choose another cell!`);
         } else {
           currentPlayer.moves.push(i);
-          this.checkWin();
           cellBtn[i].textContent = currentPlayer.tag;
+          this.checkWin();
           this.changeStyle();
           this.isPlayersTurn = !this.isPlayersTurn;
         }
@@ -62,14 +67,15 @@ const gameBoard = {
       ) {
         this.winner = currentPlayer;
         alert(`${currentPlayer.userName} won! ⭐`);
-        this.resetCells();
+        this.isFinished = true;
+        return;
       } else if (
         (this.playerOne.moves.length === 5 ||
           this.playerTwo.moves.length === 5) &&
         this.winner === null
       ) {
         alert(`Draw! Restarting... 👾`);
-        this.resetCells();
+        this.isFinished = true;
         return;
       }
     }
@@ -90,18 +96,19 @@ const gameBoard = {
 
   resetCells: function () {
     const cellBtn = document.querySelectorAll(`.cell`);
-    for (let i = 0; i <= cellBtn.length; i++) {
+    for (let i = 0; i < cellBtn.length; i++) {
       cellBtn[i].textContent = ``;
     }
-    (this.playerOne.moves = []), (this.playerTwo.moves = []);
+    this.playerOne.moves = [];
+    this.playerTwo.moves = [];
     this.isPlayersTurn = false;
     this.winner = null;
+    this.isFinished = true;
   },
   reset: function () {
-    const currentPlayer = this.playerOne;
-    const cellBtn = document.querySelectorAll(`.cell`);
+    this.resetCells();
     const restartBtn = document.querySelector(`.restart-btn`);
-    restartBtn.addEventListener("click", () => {
+    restartBtn.addEventListener("click", (e) => {
       this.resetCells();
     });
   },
