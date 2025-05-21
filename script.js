@@ -124,7 +124,7 @@ closeModal: function () {
 },
 }
 const modal = document.getElementById("myModal");
-const closeBtn = document.getElementsByClassName("close");
+const closeBtn = document.querySelector(".close");
 const modalP = document.querySelector(
   `.modal-content > .modal-text-container > p`
 );
@@ -137,4 +137,5 @@ window.onclick = function (event) {
     modalBox.closeModal();
   }
 };
+
 gameBoard.playGame();
